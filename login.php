@@ -8,7 +8,9 @@ print '<h2>Login Form</h2>
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	if ((!empty($_POST['email']))&& (!empty($_POST['password']))){
 		if ((strtolower($_POST['email']) == 'me@example.com') && ($_POST['password'] == 'testpass')){
-			print '<p class="text--success">You are logged in!<br>Now you can blah,blah, blah...</p>';
+	ob_end_clean();
+	header('Location: welcome.php');
+	exit();
 }else{
 	print '<p class="text--error">The submitted email address and password do not match those on file!<br>Go back and try again.</p>';
 }
