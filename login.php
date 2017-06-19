@@ -8,6 +8,9 @@ print '<h2>Login Form</h2>
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	if ((!empty($_POST['email']))&& (!empty($_POST['password']))){
 		if ((strtolower($_POST['email']) == 'me@example.com') && ($_POST['password'] == 'testpass')){
+	session_start();
+	$_SESSION['email']=$_POST['email'];
+	$_SESSION['loggedin']=time();
 	ob_end_clean();
 	header('Location: welcome.php');
 	exit();
