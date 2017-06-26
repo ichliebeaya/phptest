@@ -27,21 +27,46 @@ if ($_POST['password'] != $_POST['confirm']) {
 	$okay=FALSE;
 }
 
-if (is_numeric($_POST['year'])){
-	$age = 2011 - $_POST['year'];
-} else{
-	print '<p class="error">Please enter the year you were born as four digits.</p>';
+if ( is_numeric($_POST['year']) AND (strlen($_POST['year']) == 4)){
+	if ($_POST['year'] < 2017){
+		$age = 2017 - $_POST['year'];
+}else{
+	print '<p class="error">Either you entered your birth year wrong or you come from the future!</p>';
 	$okay = FALSE;
 }
+}else{
+	print '<p class="error">Please enter the year you were born as four digits.</p>';	$okay = FALSE;
+}
 
-if ($_POST['year'] >= 2017) {
-	print '<p class="error">Either you entered your birth year wrong or you come from the future!</p>';
-	$okay=FALSE;
+if (!isset($_POST['terms'])) {
+	print '<p class="error">You must accept the terms.</p>';
+	$okay = FALSE;
+
+}
+
+switch ($_POST['color']){
+	case 'red':
+		$color_type='primary';
+		break;
+	case 'yellow':
+		$color_type='primary';
+		break;
+	case 'green':
+		$color_type='secondary';
+		break;
+	case 'blue':
+		$color_type='primary';
+		break;
+	default:
+		print '<p class="error">Please select your favorite color.</p>';
+		$okay = FALSE;
+		break;
 }
 
 if ($okay) {
 	print '<p>You have been successfully registered (but not really).</p>';
 	print "<p>You will turn $age this year.</p>";
+	print "<p>Your favorite color is a $color_type color.</p>";
 }
 ?>
 </body>
