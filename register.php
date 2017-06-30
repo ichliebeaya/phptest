@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
 		print '<p class="error">Please enter your last name!</p>';
 	}
 	
-	if (empty($_POST['email'])) {
+	if (empty($_POST['email'] || (substr_count($_POST['email'],'@') !=1))) {
 		$problem = TRUE;
 		print '<p class="error">Please enter your email address!</p>';
 	}
@@ -39,6 +39,8 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
 
 	if (!$problem){
 		print '<p>You are now registered! <br />Okay, you are not really registered but...</p>';
+		$body="Thank you for registering with the J.D. Salinger fan club! Your password is '{$_POST['password1']}'.";
+		mail($_POST['email'],'Registration Confirmation', $body,'From: admin@example.com');
 		$_POST=array();
 	}else{
 		print '<p class="error">Please try again!</p>';
@@ -51,6 +53,8 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
 <form action="register.php" method="post">
 <p>First Name: <input type="text" name="first_name" size="20" value="<?php if (isset($_POST['first_name'])){print htmlspecialchars($_POST['first_name']);}?>" /></p>
 <p>Last Name: <input type="text" name="last_name" size="20" value="<?php if (isset($_POST['last_name'])) { print htmlspecialchars($_POST['last_name']);}?>" /></p>
+<p>Email Address: <input type="text" name="email" size="20" value="<?php if (isset($_POST['email'])) { print htmlspecialchars($_POST['email']); } ?>" /></p>
+
 <p>Password: <input type= "password" name="password1" size="20" value="<?php if (isset($_POST['password1'])) { print htmlspecialchars ($_POST['password1']); } ?>" /></p>
 <p>Confirm Password: <input type="password" name="password2" size="20" value="<?php if (isset($_POST['password2'])) { print htmlspecialchars ($_POST['password2']);} ?>" /></p>
 <p><input type="submit" name="submit" value="Register!" /></p>
