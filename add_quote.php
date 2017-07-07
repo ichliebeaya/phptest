@@ -38,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
 
 <form action="add_quote.php" method="post">
 	<textarea name="quote" rows="5" cols="30">Enter your quotation here.</textarea><br />
+	<input type="submit" name="submit" value="Add this Quote!" />
 </form>
 
 </body>
