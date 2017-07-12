@@ -11,10 +11,12 @@
 <?php //Script 12.4 - add_entry.php 
 
 if($_SERVER['REQUEST_METHOD']=='POST'){
+	$dbc=mysqli_connect('localhost','phptest','initial0','phptest');
+	mysqli_set_charset($dbc,'utf8');
 	$problem=FALSE;
 	if(!empty($_POST['title']) && !empty($_POST['entry'])){
-		$title=trim(strip_tags($_POST['title']));
-		$entry=trim(strip_tags($_POST['entry']));
+		$title=mysqli_real_escape_string($dbc,trim(strip_tags($_POST['title'])));
+		$entry=mysqli_real_escape_string($dbc,trim(strip_tags($_POST['entry'])));
 	}else{
 		print '<p style="color: red;">Please submit both a title and an entry.</p>';
 		$problem=TRUE;
